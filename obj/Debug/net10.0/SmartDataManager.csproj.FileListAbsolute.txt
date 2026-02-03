@@ -1,0 +1,14 @@
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\SmartDataManager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\SmartDataManager.AssemblyInfoInputs.cache
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\SmartDataManager.AssemblyInfo.cs
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\SmartDataManager.csproj.CoreCompileInputs.cache
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\SmartDataManager.dll
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\refint\SmartDataManager.dll
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\SmartDataManager.pdb
+C:\Users\fatima\Project\SmartDataManager\bin\Debug\net10.0\SmartDataManager.exe
+C:\Users\fatima\Project\SmartDataManager\bin\Debug\net10.0\SmartDataManager.deps.json
+C:\Users\fatima\Project\SmartDataManager\bin\Debug\net10.0\SmartDataManager.runtimeconfig.json
+C:\Users\fatima\Project\SmartDataManager\bin\Debug\net10.0\SmartDataManager.dll
+C:\Users\fatima\Project\SmartDataManager\bin\Debug\net10.0\SmartDataManager.pdb
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\SmartDataManager.genruntimeconfig.cache
+C:\Users\fatima\Project\SmartDataManager\obj\Debug\net10.0\ref\SmartDataManager.dll
