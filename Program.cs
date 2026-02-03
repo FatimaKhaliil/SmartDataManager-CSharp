@@ -18,13 +18,10 @@ while (true)
     switch (input)
     {
         case "1":
-            Console.Write("Name: ");
-            var name = Console.ReadLine() ?? "";
+            var name = ReadRequiredText("Name: ", "Name darf nicht leer sein.");
 
-            Console.Write("Preis: ");
-            if (!decimal.TryParse(Console.ReadLine(), out var price))
+            if (!TryReadDecimal("Preis: ", "Ungültiger Preis.", out var price))
             {
-                Console.WriteLine("Ungültiger Preis.");
                 break;
             }
 
@@ -37,10 +34,8 @@ while (true)
             break;
 
         case "3":
-            Console.Write("ID: ");
-            if (!int.TryParse(Console.ReadLine(), out var idFind))
+            if (!TryReadInt("ID: ", "Ungültige ID.", out var idFind))
             {
-                Console.WriteLine("Ungültige ID.");
                 break;
             }
 
@@ -51,20 +46,15 @@ while (true)
             break;
 
         case "4":
-            Console.Write("ID: ");
-            if (!int.TryParse(Console.ReadLine(), out var idUpdate))
+            if (!TryReadInt("ID: ", "Ungültige ID.", out var idUpdate))
             {
-                Console.WriteLine("Ungültige ID.");
                 break;
             }
 
-            Console.Write("Neuer Name: ");
-            var newName = Console.ReadLine() ?? "";
+            var newName = ReadRequiredText("Neuer Name: ", "Name darf nicht leer sein.");
 
-            Console.Write("Neuer Preis: ");
-            if (!decimal.TryParse(Console.ReadLine(), out var newPrice))
+            if (!TryReadDecimal("Neuer Preis: ", "Ungültiger Preis.", out var newPrice))
             {
-                Console.WriteLine("Ungültiger Preis.");
                 break;
             }
 
@@ -74,10 +64,8 @@ while (true)
             break;
 
         case "5":
-            Console.Write("ID: ");
-            if (!int.TryParse(Console.ReadLine(), out var idDel))
+            if (!TryReadInt("ID: ", "Ungültige ID.", out var idDel))
             {
-                Console.WriteLine("Ungültige ID.");
                 break;
             }
 
@@ -93,4 +81,41 @@ while (true)
             Console.WriteLine("Ungültige Auswahl.");
             break;
     }
+}
+
+static string ReadRequiredText(string prompt, string errorMessage)
+{
+    while (true)
+    {
+        Console.Write(prompt);
+        var input = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(input))
+            return input.Trim();
+
+        Console.WriteLine(errorMessage);
+    }
+}
+
+static bool TryReadInt(string prompt, string errorMessage, out int value)
+{
+    Console.Write(prompt);
+    if (!int.TryParse(Console.ReadLine(), out value))
+    {
+        Console.WriteLine(errorMessage);
+        return false;
+    }
+
+    return true;
+}
+
+static bool TryReadDecimal(string prompt, string errorMessage, out decimal value)
+{
+    Console.Write(prompt);
+    if (!decimal.TryParse(Console.ReadLine(), out value))
+    {
+        Console.WriteLine(errorMessage);
+        return false;
+    }
+
+    return true;
 }

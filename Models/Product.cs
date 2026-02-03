@@ -4,7 +4,7 @@ namespace SmartDataManager.Models
 {
     public class Product : Entity
     {
-private string _name = string.Empty;
+        private string _name = string.Empty;
         private decimal _price;
 
         public string Name
