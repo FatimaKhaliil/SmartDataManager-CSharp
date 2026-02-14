@@ -10,6 +10,8 @@ while (true)
     Console.WriteLine("3) Produkt suchen (ID)");
     Console.WriteLine("4) Produkt ändern (ID)");
     Console.WriteLine("5) Produkt löschen (ID)");
+    Console.WriteLine("6) Nach Preis sortieren");
+    Console.WriteLine("7) Nach Name sortieren");
     Console.WriteLine("0) Beenden");
     Console.Write("Auswahl: ");
 
@@ -76,11 +78,13 @@ while (true)
         case "6":
             service.SortByPrice();
             Console.WriteLine("Sorted by price.");
+            service.PrintAll();
             break;
 
         case "7":
             service.SortByName();
-            Console.WriteLine("Sorted by name.");
+            Console.WriteLine("Nach Name sortiert:");
+            service.PrintAll();
             break;
 
 

@@ -37,7 +37,7 @@ namespace SmartDataManager.Models
 
         public override string GetInfo()
         {
-            return $"Produkt #{Id}: {Name} - {Price:0.00} €";
+return $"Produkt-ID: {Id} | Produktname: {Name} | Preis: {Price:0.00} €";
         }
     }
 }
