@@ -1,157 +1,185 @@
-SmartDataManager-CSharp
-Projektübersicht
 
-Dieses Projekt ist eine objektorientierte Konsolenanwendung in C#, die zur Verwaltung von Produkten dient.
-Es wurde im Rahmen der Prüfungsaufgabe des Moduls „Programmieren mit C#“ entwickelt und erfüllt alle geforderten technischen Anforderungen.
 
-Die Anwendung ermöglicht das Anlegen, Anzeigen, Suchen, Ändern, Löschen und Sortieren von Produkten über ein textbasiertes Menü in der Konsole.
+# 🚀 SmartDataManager-CSharp
 
-Gewähltes Szenario
+---
 
-Szenario B – Smart Data Manager
+## 📌 Projektübersicht
 
-Verwaltung eines Datensatzes (Produkte) mit vollständigen CRUD-Operationen inklusive Sortierlogik.
+Dieses Projekt ist eine **objektorientierte Konsolenanwendung in C#** zur Verwaltung von Produkten.
 
-Funktionalität
+Es wurde im Rahmen der Prüfungsaufgabe des Moduls
+**„Programmieren mit C#“** entwickelt und erfüllt alle geforderten technischen Anforderungen.
+
+Die Anwendung ermöglicht das:
+
+* Anlegen
+* Anzeigen
+* Suchen
+* Ändern
+* Löschen
+* Sortieren
+
+von Produkten über ein textbasiertes Konsolenmenü.
+
+---
+
+## 🎯 Gewähltes Szenario
+
+### **Szenario B – Smart Data Manager**
+
+Verwaltung eines Datensatzes (Produkte) mit vollständigen **CRUD-Operationen inklusive Sortierlogik**.
+
+---
+
+## ⚙️ Funktionalität
 
 Über ein interaktives Konsolenmenü können folgende Aktionen durchgeführt werden:
 
-Produkt hinzufügen
+* ➕ Produkt hinzufügen
+* 📋 Alle Produkte anzeigen
+* 🔍 Produkt anhand der ID suchen
+* ✏️ Produktdaten ändern
+* ❌ Produkt löschen
+* 🔤 Produkte nach Name sortieren
+* 💲 Produkte nach Preis sortieren
+* 🚪 Programm beenden
 
-Alle Produkte anzeigen
+---
 
-Produkt anhand der ID suchen
+# 🏗 Architektur und Aufbau
 
-Produktdaten ändern
+Die Anwendung ist in mehrere logisch getrennte Schichten strukturiert.
 
-Produkt löschen
+---
 
-Produkte nach Name sortieren
+## 📍 Program.cs
 
-Produkte nach Preis sortieren
+* Einstiegspunkt der Anwendung
+* Initialisiert den `ProductService`
+* Steuert die Menülogik
+* Verarbeitet Benutzereingaben
 
-Programm beenden
+---
 
-Architektur und Aufbau
-Program.cs
+## 🧠 Services – `ProductService`
 
-Einstiegspunkt der Anwendung
+* Enthält die gesamte Geschäftslogik
+* Verwaltet alle Produkte
+* Implementiert CRUD-Operationen
+* Implementiert Sortieroperationen:
 
-Initialisiert den ProductService
+  * `SortByName()`
+  * `SortByPrice()`
+* Nutzt die eigene verkettete Liste zur Datenspeicherung
 
-Steuert die Menülogik und Benutzereingaben
+---
 
-Services – ProductService
+## 🗂 Data – Eigene verkettete Liste
 
-Enthält die gesamte Geschäftslogik
+Zur Speicherung wird eine **selbst implementierte generische, einfach verkettete Liste** verwendet.
 
-Verwaltet Produkte
+### Bestandteile:
 
-Implementiert CRUD-Operationen
+* `Node<T>` – Repräsentiert ein einzelnes Element
+* `MyLinkedList<T>` – Eigene generische Listenstruktur
 
-Implementiert Sortieroperationen:
+### Wichtige Methoden:
 
-SortByName()
+* `AddLast`
+* `TryFind`
+* `ForEach`
+* `RemoveFirstMatch`
+* `Sort(Comparison<T>)`
 
-SortByPrice()
+Die Sortierung erfolgt innerhalb der Liste mithilfe eines generischen
+`Comparison<T>`-Delegates (Bubble-Sort-Algorithmus durch Tauschen der Werte).
 
-Verwendet eine eigene verkettete Liste zur Datenspeicherung
+> Es wird **keine `List<T>` aus dem .NET-Framework** verwendet.
 
-Data – Eigene verkettete Liste
+---
 
-Zur Speicherung der Produkte wird eine selbst implementierte generische, einfach verkettete Liste verwendet.
+## 📦 Models
 
-Node<T> – Repräsentiert ein einzelnes Element
+### 🔹 `Entity`
 
-MyLinkedList<T> – Eigene generische Listenstruktur
+* Basisklasse mit der Eigenschaft `Id`
 
-Wichtige Methoden:
+### 🔹 `Product` (erbt von `Entity`)
 
-AddLast
+Eigenschaften:
 
-TryFind
-
-ForEach
-
-RemoveFirstMatch
-
-Sort(Comparison<T>)
-
-Die Sortierung erfolgt innerhalb der Liste mithilfe eines generischen Comparison<T>-Delegates (Bubble-Sort-Algorithmus durch Tauschen der Werte).
-
-Es wird keine List<T> aus dem .NET-Framework verwendet.
-
-Models
-
-Entity – Basisklasse mit der Eigenschaft Id
-
-Product – erbt von Entity
-
-Eigenschaften von Product:
-
-Name
-
-Price
+* `Name`
+* `Price`
 
 Validierungslogik:
 
-Kein leerer Name erlaubt
+* Kein leerer Name erlaubt
+* Kein negativer Preis erlaubt
 
-Kein negativer Preis erlaubt
+Die Methode `GetInfo()` wird überschrieben (Polymorphie).
 
-Die Methode GetInfo() wird überschrieben (Polymorphie).
+---
 
-Erfüllte Pflichtanforderungen
+# ✅ Erfüllte Pflichtanforderungen
 
-✔ Vererbung und Polymorphie (Entity → Product)
-
+✔ Vererbung und Polymorphie (`Entity → Product`)
 ✔ Properties mit Logik (Validierung in Get/Set)
-
 ✔ Eigene dynamische Datenstruktur (verkettete Liste)
+✔ Generische Typen (`MyLinkedList<T>`)
 
-✔ Generische Typen (MyLinkedList<T>)
+---
 
-Wahlpflichtfeatures (2 von 3)
-1. Delegates
+# ⭐ Wahlpflichtfeatures (2 von 3)
 
-Func<T, bool> für Such- und Löschoperationen
+## 1️⃣ Delegates
 
-Action<T> für Iteration und Ausgabe
+Verwendete Delegate-Typen:
 
-Comparison<T> für flexible Sortierlogik
+* `Func<T, bool>` → Such- und Löschoperationen
+* `Action<T>` → Iteration und Ausgabe
+* `Comparison<T>` → Flexible Sortierlogik
 
 Einsatz in:
 
-TryFind
+* `TryFind`
+* `RemoveFirstMatch`
+* `Sort`
 
-RemoveFirstMatch
+---
 
-Sort
+## 2️⃣ Parameter-Modifikator `out`
 
-2. Parameter-Modifikator out
+Verwendung des `out`-Parameters in:
 
-Verwendung des out-Parameters in:
+* `TryFind`
+* `TryGetById`
+* `RemoveFirstMatch`
 
-TryFind
+---
 
-TryGetById
+# 🧩 Technische Besonderheiten
 
-RemoveFirstMatch
+* Vollständig selbst implementierte Datenstruktur
+* Flexible Sortierlogik durch Delegates
+* Klare Trennung von Präsentations-, Service- und Datenebene
+* Speicherung ausschließlich im Arbeitsspeicher
+* Objektorientierte, modulare Architektur
 
-Technische Besonderheiten
+---
 
-Vollständig selbst implementierte Datenstruktur
+# ▶️ Ausführung des Projekts
 
-Flexible Sortierlogik durch Delegates
+## Voraussetzungen
 
-Klare Trennung von Präsentations-, Service- und Datenebene
+* .NET SDK (Version 8 oder höher)
 
-Speicherung ausschließlich im Arbeitsspeicher
+## Anwendung starten
 
-Ausführung des Projekts
-Voraussetzungen
-
-.NET SDK (Version 8 oder höher)
-
-Starten der Anwendung
+```bash
 dotnet run
+```
+
+---
+
+
