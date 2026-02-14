@@ -73,6 +73,16 @@ while (true)
                 ? "Gelöscht: " + removed.GetInfo()
                 : "Nicht gefunden.");
             break;
+        case "6":
+            service.SortByPrice();
+            Console.WriteLine("Sorted by price.");
+            break;
+
+        case "7":
+            service.SortByName();
+            Console.WriteLine("Sorted by name.");
+            break;
+
 
         case "0":
             return;

@@ -53,5 +53,18 @@ namespace SmartDataManager.Services
         {
             return _products.RemoveFirstMatch(p => p.Id == id, out removed);
         }
+        // Sort by price
+        public void SortByPrice()
+        {
+            _products.Sort((a, b) => a.Price.CompareTo(b.Price));
+        }
+        // Sort by name
+        public void SortByName()
+        {
+            _products.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+
+
     }
 }

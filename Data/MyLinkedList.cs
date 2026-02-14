@@ -88,7 +88,6 @@ namespace SmartDataManager.Data
 
             if (_head == null) return false;
 
-            // إذا أول عنصر هو المطلوب
             if (predicate(_head.Value))
             {
                 removedItem = _head.Value;
@@ -124,5 +123,37 @@ namespace SmartDataManager.Data
 
             return false;
         }
+
+
+        public void Sort(Comparison<T> comparison)
+        {
+            if (_head == null || _head.Next == null)
+                return;
+
+            bool swapped;
+            do
+            {
+                swapped = false;
+                var current = _head;
+
+                while (current.Next != null)
+                {
+                    if (comparison(current.Value, current.Next.Value) > 0)
+                    {
+                        T temp = current.Value;
+                        current.Value = current.Next.Value;
+                        current.Next.Value = temp;
+
+                        swapped = true;
+                    }
+
+                    current = current.Next;
+                }
+            } while (swapped);
+        }
+
     }
+
+
+
 }
