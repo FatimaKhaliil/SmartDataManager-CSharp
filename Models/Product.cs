@@ -18,7 +18,7 @@ namespace SmartDataManager.Models//namespace  bezieht sich auf den Ordner, in de
             }
         }
 
-        public decimal Price // Eigenschaft für den Preis des Produkts
+        public decimal Price // Eigenschaft für den Preis des Produkts   decimal ist besser für Geldbeträge, da es keine Rundungsfehler hat
         {
             get => _price;
             set

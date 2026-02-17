@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartDataManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b15ddc87ae89022fb26a43cd23a59c413f2fa1bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+294d5865c1343fd09b03713be375607c8af93aaf")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartDataManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartDataManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

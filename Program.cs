@@ -13,7 +13,9 @@ while (true)
     Console.WriteLine("5) Produkt löschen (ID)");
     Console.WriteLine("6) Nach Preis sortieren");
     Console.WriteLine("7) Nach Name sortieren");
-    Console.WriteLine("0) Beenden");
+    Console.WriteLine("8) Nach ID sortieren");
+/*     Console.WriteLine("9) Anzahl Produkte nach Preis");
+ */    Console.WriteLine("0) Beenden");
     Console.Write("Auswahl: ");
 
     var input = Console.ReadLine();
@@ -118,6 +120,21 @@ while (true)
             Console.WriteLine("Nach Name sortiert:");
             service.PrintAll();
             break;
+
+            case "8":
+    service.SortById();
+    Console.WriteLine("Produkte nach ID sortiert.");
+    service.PrintAll();
+    break;
+
+
+  /*   case "9":
+    var minPrice = ReadRequiredDecimalNonNegative("Mindestpreis: ");
+    var count = service.CountByPrice(minPrice);
+    Console.WriteLine($"Anzahl Produkte mit Preis >= {minPrice}: {count}"); 
+    service.CountByPrice(minPrice);
+    break;
+ */
 
         case "0":
             return;

@@ -13,30 +13,30 @@ namespace SmartDataManager.Data
         {
             var node = new Node<T>(item);
 
-            if (_head == null)
+            if (_head == null) //bei leerer Liste: _head und _tail zeigen auf denselben Knoten
             {
                 _head = node;
                 _tail = node;
             }
-            else
+            else //sonst: _tail.Next zeigt auf den neuen Knoten 
             {
                 _tail!.Next = node;
                 _tail = node;
             }
 
-            Count++;
+            Count++; // Erhöhen der Anzahl der Elemente in der Liste
         }
-
-        public bool RemoveFirst(out T? removedItem)
+        
+        public bool RemoveFirst(out T? removedItem) //out-Parameter, um das entfernte Element zurückzugeben. Gibt true zurück, wenn ein Element entfernt wurde, und false, wenn die Liste leer war.
         {
             if (_head == null)
             {
                 removedItem = default;
-                return false;
+                return false; // Rückgabe von false, wenn die Liste leer ist.
             }
 
-            removedItem = _head.Value;
-            _head = _head.Next;
+            removedItem = _head.Value;  
+            _head = _head.Next; //
 
             if (_head == null)
                 _tail = null;
@@ -45,7 +45,8 @@ namespace SmartDataManager.Data
             return true;
         }
 
-        public bool TryFind(Func<T, bool> predicate, out T? found)
+        public bool TryFind(Func<T, bool> predicate, out T? found)    //Func<T, bool> ist ein Delegat, ein Delegate mit rückgabewert bool und einem Parameter vom Typ T. Es wird verwendet, um eine Bedingung zu definieren, die auf die Elemente der Liste angewendet wird, um das gesuchte Element zu finden.
+         
         {
             var current = _head;
 
@@ -151,6 +152,8 @@ namespace SmartDataManager.Data
                 }
             } while (swapped);
         }
+
+        
 
     }
 
