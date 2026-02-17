@@ -1,4 +1,5 @@
-﻿using SmartDataManager.Services;
+﻿using System;
+using SmartDataManager.Services;
 
 var service = new ProductService();
 
@@ -20,64 +21,95 @@ while (true)
     switch (input)
     {
         case "1":
-            var name = ReadRequiredText("Name: ", "Name darf nicht leer sein.");
-
-            if (!TryReadDecimal("Preis: ", "Ungültiger Preis.", out var price))
+        {
+            try
             {
-                break;
+                var name = ReadRequiredText("Name: ", "Name darf nicht leer sein.");
+                var price = ReadRequiredDecimalNonNegative("Preis: ");
+
+                var created = service.Add(name, price);
+                Console.WriteLine("Erstellt: " + created.GetInfo());
+            }
+            catch (ArgumentException ex)
+            {
+                // Falls Model-Validierung trotzdem eine Exception wirft
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unerwarteter Fehler: " + ex.Message);
             }
 
-            var created = service.Add(name, price);
-            Console.WriteLine("Erstellt: " + created.GetInfo());
             break;
+        }
 
         case "2":
             service.PrintAll();
             break;
 
         case "3":
-            if (!TryReadInt("ID: ", "Ungültige ID.", out var idFind))
+        {
+            try
             {
-                break;
+                var idFind = ReadRequiredInt("ID: ", "Ungültige ID.");
+                if (service.TryGetById(idFind, out var found) && found != null)
+                    Console.WriteLine("Gefunden: " + found.GetInfo());
+                else
+                    Console.WriteLine("Nicht gefunden.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unerwarteter Fehler: " + ex.Message);
             }
 
-            if (service.TryGetById(idFind, out var found) && found != null)
-                Console.WriteLine("Gefunden: " + found.GetInfo());
-            else
-                Console.WriteLine("Nicht gefunden.");
             break;
+        }
 
         case "4":
-            if (!TryReadInt("ID: ", "Ungültige ID.", out var idUpdate))
+        {
+            try
             {
-                break;
+                var idUpdate = ReadRequiredInt("ID: ", "Ungültige ID.");
+                var newName = ReadRequiredText("Neuer Name: ", "Name darf nicht leer sein.");
+                var newPrice = ReadRequiredDecimalNonNegative("Neuer Preis: ");
+
+                Console.WriteLine(service.Update(idUpdate, newName, newPrice)
+                    ? "Aktualisiert."
+                    : "Nicht gefunden.");
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unerwarteter Fehler: " + ex.Message);
             }
 
-            var newName = ReadRequiredText("Neuer Name: ", "Name darf nicht leer sein.");
-
-            if (!TryReadDecimal("Neuer Preis: ", "Ungültiger Preis.", out var newPrice))
-            {
-                break;
-            }
-
-            Console.WriteLine(service.Update(idUpdate, newName, newPrice)
-                ? "Aktualisiert."
-                : "Nicht gefunden.");
             break;
+        }
 
         case "5":
-            if (!TryReadInt("ID: ", "Ungültige ID.", out var idDel))
+        {
+            try
             {
-                break;
+                var idDel = ReadRequiredInt("ID: ", "Ungültige ID.");
+
+                Console.WriteLine(service.Delete(idDel, out var removed) && removed != null
+                    ? "Gelöscht: " + removed.GetInfo()
+                    : "Nicht gefunden.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Unerwarteter Fehler: " + ex.Message);
             }
 
-            Console.WriteLine(service.Delete(idDel, out var removed) && removed != null
-                ? "Gelöscht: " + removed.GetInfo()
-                : "Nicht gefunden.");
             break;
+        }
+
         case "6":
             service.SortByPrice();
-            Console.WriteLine("Sorted by price.");
+            Console.WriteLine("Nach Preis sortiert:");
             service.PrintAll();
             break;
 
@@ -86,7 +118,6 @@ while (true)
             Console.WriteLine("Nach Name sortiert:");
             service.PrintAll();
             break;
-
 
         case "0":
             return;
@@ -97,12 +128,17 @@ while (true)
     }
 }
 
+// ------------------------------------
+// Helper Methoden (Eingabe-Validierung)
+// ------------------------------------
+
 static string ReadRequiredText(string prompt, string errorMessage)
 {
     while (true)
     {
         Console.Write(prompt);
         var input = Console.ReadLine();
+
         if (!string.IsNullOrWhiteSpace(input))
             return input.Trim();
 
@@ -110,26 +146,41 @@ static string ReadRequiredText(string prompt, string errorMessage)
     }
 }
 
-static bool TryReadInt(string prompt, string errorMessage, out int value)
-{
-    Console.Write(prompt);
-    if (!int.TryParse(Console.ReadLine(), out value))
-    {
-        Console.WriteLine(errorMessage);
-        return false;
-    }
 
-    return true;
+static int ReadRequiredInt(string prompt, string errorMessage) // ID muss Zahl sein (und fragt so lange neu)
+{
+    while (true)
+    {
+        Console.Write(prompt);
+        var input = Console.ReadLine();
+
+        if (int.TryParse(input, out var value))
+            return value;
+
+        Console.WriteLine(errorMessage);
+    }
 }
 
-static bool TryReadDecimal(string prompt, string errorMessage, out decimal value)
+// Preis muss Zahl UND >= 0 sein (und fragt so lange neu)
+static decimal ReadRequiredDecimalNonNegative(string prompt)
 {
-    Console.Write(prompt);
-    if (!decimal.TryParse(Console.ReadLine(), out value))
+    while (true)
     {
-        Console.WriteLine(errorMessage);
-        return false;
-    }
+        Console.Write(prompt);
+        var input = Console.ReadLine();
 
-    return true;
+        if (!decimal.TryParse(input, out var value))
+        {
+            Console.WriteLine("Ungültiger Preis. Bitte Zahl eingeben.");
+            continue;
+        }
+
+        if (value < 0)
+        {
+            Console.WriteLine("Preis darf nicht negativ sein.");
+            continue;
+        }
+
+        return value;
+    }
 }

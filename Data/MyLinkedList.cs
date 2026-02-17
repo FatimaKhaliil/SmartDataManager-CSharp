@@ -2,7 +2,7 @@ using System;
 
 namespace SmartDataManager.Data
 {
-    public class MyLinkedList<T>
+    public class MyLinkedList<T>// generische verkettete Liste, die verschiedene Operationen wie Hinzufügen, Entfernen, Suchen und Sortieren von Elementen unterstützt
     {
         private Node<T>? _head;
         private Node<T>? _tail;
